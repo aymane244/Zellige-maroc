@@ -19,3 +19,6 @@
 .nav-tabs .nav-link.active{
     border-top: 2px solid #DC3545 !important;
 }
+.disp{
+    display: none;
+}

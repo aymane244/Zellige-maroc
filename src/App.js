@@ -4,7 +4,8 @@ import 'popper.js';
 import './App.css';
 import './css/body.css';
 import './css/navbar.css';
-import './css/footer.css'
+import './css/footer.css';
+import './css/cart.css';
 import Home from './components/Home';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -13,7 +14,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}>
+          <Route index element={<Home />}>
           </Route>
         </Routes>
       </BrowserRouter>
