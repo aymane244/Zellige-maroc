@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Navbar(props) {
+export default function Navbar({number, change}) {
+    console.log(number)
     return (
         <div>
             <nav className="navbar navbar-expand-lg bg-light nav-shadow">
@@ -78,9 +79,9 @@ export default function Navbar(props) {
                                 </ul>
                             </li>
                         </ul>
-                        <div className="pointer border px-3 py-2 position-relative" onClick={props.change}>
+                        <div className="pointer border px-3 py-2 position-relative" onClick={change}>
                             <i className="fa-solid fa-cart-shopping fs-4 text-danger"></i>
-                            <span className="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger py-1 px-2">{props.number}</span>
+                            <span className="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger py-1 px-2">{number}</span>
                         </div>
                     </div>
                 </div>

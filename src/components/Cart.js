@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Usercontext } from "./Body";
 
 export default function Cart(props) {
+    const count = useContext(Usercontext)
     return (
         <div>
             <nav className="sidebar h-100 w-100 position-fixed top-0 end-0 position-relative">
@@ -10,14 +12,14 @@ export default function Cart(props) {
                         <span onClick={props.change}><i className="fa-solid fa-xmark fs-4 border border-dark rounded-circle py-1 px-2 me-3 pointer"></i></span>
                     </div>
                     <div className="mt-4 ms-3">
-                        {props.number <= 0 ? <h4 className="text-center">Panier est vide</h4> :
+                        {count <= 0 ? <h4 className="text-center">Panier est vide</h4> :
                             <div>
                                 <div className="d-flex justify-content-around">
                                     <div className="d-flex">
                                         <img src="images/Z-1.webp" alt="" className="img-cart" />
                                         <p className="ms-3">{props.name}</p>
                                     </div>
-                                    <div><i className="fa-solid fa-xmark pointer text-danger"></i></div>
+                                    <div onClick={props.set}><i className="fa-solid fa-xmark pointer text-danger"></i></div>
                                 </div>
                                 <div className="d-flex justify-content-around mt-3 fs-4">
                                     <p><strong>Prix: </strong></p>

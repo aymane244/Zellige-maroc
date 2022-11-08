@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Cart from "./Cart";
 import Navbar from "./Navbar";
 
+export const Usercontext = createContext();
 export default function Body() {
     const title = "C2001";
     const [image, setImage] = useState({
@@ -12,7 +13,12 @@ export default function Body() {
         price: 50,
         qte: 1
     })
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(
+        JSON.parse(localStorage.getItem('count')) || 0
+        );
+    useEffect(()=>{
+        localStorage.setItem('count', JSON.stringify(count))
+    }, [count])
     const [display, setDisplay] = useState(true)
     const stylesOpacity = {
         opacity: 0.5,
@@ -35,8 +41,11 @@ export default function Body() {
     function increm() {
         setCount(count + 1)
     }
-    function changeDisplay(){
-        setDisplay(disp=>!disp)
+    function setToDefault() {
+        setCount(0)
+    }
+    function changeDisplay() {
+        setDisplay(disp => !disp)
     }
     return (
         <div>
@@ -44,16 +53,21 @@ export default function Body() {
                 number={count}
                 change={changeDisplay}
             />
-            <div className={display ? "disp" : ""}>
-                <Cart
-                    prix={quantity.price}
-                    quantity={quantity.qte}
-                    image={image.imageDisplay}
-                    name={title}
-                    change={changeDisplay}
-                    number={count}
-                />
-            </div>
+            <Usercontext.Provider
+                value={count}
+            >
+                <div className={display ? "disp" : ""}>
+                    <Cart
+                        prix={quantity.price}
+                        quantity={quantity.qte}
+                        image={image.imageDisplay}
+                        name={title}
+                        change={changeDisplay}
+                        set={setToDefault}
+
+                    />
+                </div>
+            </Usercontext.Provider>
             <div className="container">
                 <div className="bg-white mt-5">
                     <div className="row py-4 justify-content-center align-items-center container">
@@ -144,13 +158,21 @@ export default function Body() {
                                     </div>
                                 </div>
                                 <div className="text-center mt-4">
-                                    <button
+                                    {count <= 0 ? <button
                                         type="button"
                                         className="border-0 bg-danger shadow px-5 py-2 text-decoration-none text-white fs-4"
                                         onClick={increm}
                                     >
                                         &nbsp;Ajouter au panier&nbsp;
-                                    </button>
+                                    </button> :
+                                        <button
+                                            type="button"
+                                            className="border-0 bg-danger shadow px-5 py-2 text-decoration-none text-white fs-4"
+                                            disabled
+                                        >
+                                            &nbsp;Déja au panier&nbsp;
+                                        </button>}
+
                                 </div>
                             </form>
                         </div>
