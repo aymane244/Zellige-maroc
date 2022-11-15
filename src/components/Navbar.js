@@ -1,8 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Outlet,Link } from "react-router-dom";
 
-export default function Navbar({number, change}) {
-    console.log(number)
+export default function Navbar({count, change}) {
     return (
         <div>
             <nav className="navbar navbar-expand-lg bg-light nav-shadow">
@@ -23,9 +22,9 @@ export default function Navbar({number, change}) {
                                 <Link className="nav-link text-dark" to="/">A propos</Link>
                             </li>
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <p className="nav-link dropdown-toggle text-dark" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Boutique
-                                </a>
+                                </p>
                                 <ul className="dropdown-menu">
                                     <li><Link className="dropdown-item" to="/">Ciment</Link></li>
                                     <li><hr className="dropdown-divider" /></li>
@@ -37,9 +36,9 @@ export default function Navbar({number, change}) {
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <p className="nav-link dropdown-toggle text-dark" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Couleurs
-                                </a>
+                                </p>
                                 <ul className="dropdown-menu">
                                     <li><Link className="dropdown-item" to="/">Palette Ciment: </Link></li>
                                     <li><hr className="dropdown-divider" /></li>
@@ -49,9 +48,9 @@ export default function Navbar({number, change}) {
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <p className="nav-link dropdown-toggle text-dark" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Simulateur
-                                </a>
+                                </p>
                                 <ul className="dropdown-menu">
                                     <li><Link className="dropdown-item" to="/">Simulateur Ciment</Link></li>
                                     <li><hr className="dropdown-divider" /></li>
@@ -60,7 +59,7 @@ export default function Navbar({number, change}) {
                                     <li><Link className="dropdown-item" to="/">Simulateur Zellige</Link></li>
                                 </ul>
                             </li>
-                            <li className="nav-item dropdown border ms-lg-3">
+                            <li className="nav-item dropdown ms-lg-3">
                                 <button className="border-0 bg-transparent nav-link text-dark d-flex align-items-center justify-content-around px-3" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img src="images/Flag-France.webp" className="flag-image" alt="flag" /> <span className="ms-2">French</span>
                                     <i className="arrow down ms-5"></i>
@@ -81,11 +80,12 @@ export default function Navbar({number, change}) {
                         </ul>
                         <div className="pointer border px-3 py-2 position-relative" onClick={change}>
                             <i className="fa-solid fa-cart-shopping fs-4 text-danger"></i>
-                            <span className="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger py-1 px-2">{number}</span>
+                            <span className="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger py-1 px-2">{count.length}</span>
                         </div>
                     </div>
                 </div>
             </nav>
+            <Outlet />
         </div>
     )
 }

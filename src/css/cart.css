@@ -18,3 +18,6 @@
     from {top:-400px; opacity:0;} 
     to {top:0; opacity:1}
 }
+.margin-cart-btn{
+    margin-top: 2.7rem;
+}

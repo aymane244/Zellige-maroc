@@ -22,3 +22,6 @@
 .disp{
     display: none;
 }
+.bg-disable{
+    background-color: #DEE2E6;
+}

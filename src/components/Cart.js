@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { Usercontext } from "./Body";
+import { Usercontext } from "../App";
 
 export default function Cart(props) {
-    const count = useContext(Usercontext)
+    const { cart, removeProductInCart, quantity, incQuantity, decQuantity } = useContext(Usercontext)
     return (
         <div>
             <nav className="sidebar h-100 w-100 position-fixed top-0 end-0 position-relative">
@@ -12,29 +12,40 @@ export default function Cart(props) {
                         <span onClick={props.change}><i className="fa-solid fa-xmark fs-4 border border-dark rounded-circle py-1 px-2 me-3 pointer"></i></span>
                     </div>
                     <div className="mt-4 ms-3">
-                        {count <= 0 ? <h4 className="text-center">Panier est vide</h4> :
+                        {cart.length <= 0 ? <h4 className="text-center">Panier est vide</h4> :
                             <div>
-                                <div className="d-flex justify-content-around">
-                                    <div className="d-flex">
-                                        <img src="images/Z-1.webp" alt="" className="img-cart" />
-                                        <p className="ms-3">{props.name}</p>
-                                    </div>
-                                    <div onClick={props.set}><i className="fa-solid fa-xmark pointer text-danger"></i></div>
-                                </div>
-                                <div className="d-flex justify-content-around mt-3 fs-4">
-                                    <p><strong>Prix: </strong></p>
-                                    <p><strong>{props.prix} €</strong></p>
-                                </div>
-                                <div className="d-flex justify-content-around mt-2 fs-4">
-                                    <p><strong>Quantité: </strong></p>
-                                    <p><strong>{props.quantity}</strong></p>
-                                </div>
-                                <div className="mt-5">
-                                    <hr className="w-100" />
-                                    <div className="d-flex justify-content-around mt-3 fs-4">
-                                        <p><strong>Total: </strong></p>
-                                        <p><strong><span>{props.quantity * props.prix} €</span></strong></p>
-                                    </div>
+                                {cart.map(({ id, name, price, image, qte }) => (
+                                    <>
+                                        <div className="text-center">
+                                            <p className="fs-5">{name}</p>
+                                        </div>
+                                        <div className="d-flex justify-content-around">
+                                            <img src={image} alt="" className="img-cart" />
+                                            <div className="fs-5">
+                                                <p>
+                                                    <strong>Prix: </strong>
+                                                    <strong>{price} €</strong>
+                                                </p>
+                                                <div className="hstack gap-3 mt-4 bg-white w-50 mx-auto justify-content-center border pointer">
+                                                    <div className="fs-4 py-2 ps-2" onClick={decQuantity}><strong>-</strong></div>
+                                                    <div className="vr"></div>
+                                                    <div className="fs-4 py-2 px-3"><strong><span>{quantity}</span></strong></div>
+                                                    <div className="vr"></div>
+                                                    <div className="fs-4 py-2 pe-2" onClick={incQuantity}><strong>+</strong></div>
+                                                </div>
+                                            </div>
+                                            <div onClick={() => removeProductInCart(id)}><i className="fa-solid fa-xmark pointer text-danger"></i></div>
+                                        </div>
+                                        <div className="mt-5">
+                                            <div className="d-flex justify-content-around mt-3 fs-4">
+                                                <p><strong>Total: </strong></p>
+                                                <p><strong><span>{quantity * price} €</span></strong></p>
+                                            </div>
+                                        </div>
+                                        <hr className="w-100" />
+                                    </>
+                                ))}
+                                <div className="margin-cart-btn py-5">
                                     <div className="text-center mt-2">
                                         <a href="/" className="w-100 bg-white shadow px-5 py-2 text-decoration-none text-dark fs-3">Voir le Panier</a>
                                     </div>
